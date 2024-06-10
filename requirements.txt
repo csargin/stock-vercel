@@ -1,6 +1,9 @@
 Django==3.2.5
 psycopg2-binary==2.8.6
 pandas == 2.2.2
+
+
+
 stockdatamanager == 1.1.2
 yfinance == 0.2.40
 yahoo_finance_symbols == 0.1.0
