@@ -4,7 +4,4 @@ pandas == 2.2.2
 
 
 
-stockdatamanager == 1.1.2
-yfinance == 0.2.40
-yahoo_finance_symbols == 0.1.0
-yahoo-finance == 1.4.0
+
