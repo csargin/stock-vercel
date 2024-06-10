@@ -1,8 +1,7 @@
 from django import forms
-from .models import example
-
+from .models import Stock
 
 class StockForm(forms.ModelForm):
     class Meta:
-        model = example
+        model = Stock
         fields = ['ticker'] # fields = ['pub_date', 'headline', 'content', 'reporter']
