@@ -153,3 +153,4 @@ def test(request):
     temp = msft.info
     api= pd.DataFrame(data=temp)
     return render(request, 'test.html',{'api': api, 'ticker': msft })
+    
