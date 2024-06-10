@@ -31,7 +31,7 @@ def tr_stock_name(stock):
 
 def home(request):
     #ticker_list = tuple(Stock.objects.values_list('ticker', flat = True))
-    ticker_list = Stock.objects.values_list( 'id', 'ship_name', 'ship_class', 'ship_race', 'ship_price', 'ship_weapon', 'ship_turret', 'ship_hull', 'ship_cargo', 'ship_dock', 'ship_hangar', 'ship_dlc', 'ship_role', 'ship_shield', 'ship_speed')
+    ticker_list = Stock.objects.values_list( 'id', 'ticker')
    
     if len(ticker_list)>0:
         try:
