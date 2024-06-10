@@ -65,7 +65,7 @@ def search(request):
         except Exception as e:
             api = "Error"
         upper_ticker = ticker.upper()
-        return render(request, 'search.html',{'api': api, 'ticker': ticker   })
+        return render(request, 'search.html',{'api': api, 'ticker': ticker_ticker   })
     else:
         return render(request, 'search.html',{'ticker': "Enter a ticker symbol" })
 
@@ -148,4 +148,6 @@ def forecast(request, stock_name):
     return render(request, 'forecast.html', {'ticker': stock_name, 'tr_stock': tr_stock_name(stock_name)})
 
 def test(request):
-    return render(request, 'test.html' , {})
+    temp = si.get_quote_table("AAPL", dict_result=False).set_index('attribute')
+    api= pd.DataFrame(data=temp)
+    return render(request, 'test.html',{'api': api, 'ticker': "AAPL" })
