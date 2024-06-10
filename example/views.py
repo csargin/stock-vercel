@@ -6,7 +6,7 @@ from .forms import StockForm
 from django.contrib import messages
 
 
-import yfinance as yf
+import yfinance as yf #https://pypi.org/project/yfinance/
 import pandas as pd
 import numpy as np
 import requests
