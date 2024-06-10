@@ -1,12 +1,28 @@
-
 {% extends 'base.html' %}
 {% block content %}
 
-    
     {% if api %}
-        Portfolio is not Empty
+        <table class="table table-striped table-bordered table-hover align="left">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center" style="vertical-align: middle" scope="col">Stock Name</th>
+                    <th class="text-center" style="vertical-align: middle" scope="col">Analysis</th>
+                    <th class="text-center" style="vertical-align: middle" scope="col">Forecast</th>
+                    <th class="text-center" style="vertical-align: middle" scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock_ticker in api %}
+                    <tr>
+                        <td class="text-center" style="vertical-align: middle">{{ stock_ticker }}</td>
+                        <td class="text-center" style="vertical-align: middle"><a href="{% url 'analysis' stock_ticker %}">Analysis</a></td>
+                        <td class="text-center" style="vertical-align: middle"><a href="{% url 'forecast' stock_ticker %}">Forecast</a></td>
+                        <td class="text-center" style="vertical-align: middle"><a href="{% url 'delete' stock_ticker %}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     {% else %}
         Portfolio is Empty
     {% endif%}
 {% endblock %}
-
