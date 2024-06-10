@@ -5,7 +5,7 @@ from .models import Stock
 from .forms import StockForm
 from django.contrib import messages
 
-import yahoo_fin.stock_info as si
+#import yahoo_fin.stock_info as si
 import pandas as pd
 import numpy as np
 import requests
