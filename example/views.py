@@ -56,7 +56,8 @@ def search(request):
 
         try:
             try:
-                temp = si.get_quote_table(ticker, dict_result=False).set_index('attribute')
+                temp = yf.Ticker(ticker)
+                temp = msft.info
                 api= pd.DataFrame(data=temp)
             except:
                 ticker = ticker + ".IS"
