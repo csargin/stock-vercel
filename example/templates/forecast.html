@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+        <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.stock.min.js"></script>
+        <script type="text/javascript">
+    window.onload = function () {
+var actual_data = [];
+var validate_data = [];
+var forecast_data = [];
+var actual_data_link = "/static/forecasts/" + "{{tr_stock}}" + "/actual_data.json" ;
+var validate_data_link = "/static/forecasts/" + "{{tr_stock}}" + "/validate_data.json" ;
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	title: {
+		text: "Stock Forcast"
+	},
+	subtitles: [{
+      text:"{{ ticker }}"
+    }],
+
+	axisX: {
+		valueFormatString: "D MMM YYYY",
+		labelAngle: -90,
+	},
+	axisY: {
+		title: "Stock Price",
+		labelPlacement: "outside",
+		prefix: "",
+		suffix: "",
+		labelAngle: 0,
+	},
+
+	legend: {
+        verticalAlign: "top",
+        cursor: "pointer",
+        itemclick: function (e) {
+          if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+          } else {
+            e.dataSeries.visible = true;
+          }
+          e.chart.render();
+        }
+      },
+      toolTip: {
+        shared: true
+      },
+
+
+	data: [{
+		type:"line",
+		axisYType: "primary",
+		xValueType: "dateTime",
+		name: "actual",
+		showInLegend: true,
+		markerSize: 0,
+		yValueFormatString: "$#,###.00",
+		dataPoints: actual_data,
+		lineColor: "blue",
+	},
+
+	{
+		type:"line",
+		axisYType: "primary",
+		xValueType: "dateTime",
+		name: "forecast",
+		showInLegend: true,
+		markerSize: 0,
+		yValueFormatString: "$#,###.00",
+		dataPoints: forecast_data,
+		lineColor: "red",
+	},
+
+	{
+		type: "line",
+		axisYType: "primary",
+		xValueType: "dateTime",
+		name: "validate",
+		showInLegend: true,
+		markerSize: 0,
+		yValueFormatString: "$#,###.00",
+		dataPoints: validate_data,
+		lineColor: "green",
+	}]
+});
+
+$.getJSON(actual_data_link , function(data) {
+    for(var i = 0; i < data.length; i++){
+      actual_data.push({x: new Date(data[i].date), y: Number(data[i].close)});
+    }
+    chart.render();
+  });
+
+$.getJSON(validate_data_link, function(data) {
+    for(var i = 0; i < data.length; i++){
+      validate_data.push({x: new Date(data[i].date), y: Number(data[i].close)});
+    }
+    chart.render();
+  });
+
+
+function toogleDataSeries(e){
+	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	} else{
+		e.dataSeries.visible = true;
+	}
+	chart.render();
+};
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+{% endblock %}
