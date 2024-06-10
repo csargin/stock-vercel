@@ -146,3 +146,6 @@ def forecast(request, stock_name):
     # https://canvasjs.com/javascript-stockcharts/line-stockchart-json/
     # https://canvasjs.com/python-charts/python-charts-data-binding/line-chart-data-csv/
     return render(request, 'forecast.html', {'ticker': stock_name, 'tr_stock': tr_stock_name(stock_name)})
+
+def test(request):
+    return render(request, 'test.html' , {})
