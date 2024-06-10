@@ -65,7 +65,7 @@ def search(request):
         except Exception as e:
             api = "Error"
         upper_ticker = ticker.upper()
-        return render(request, 'search.html',{'api': api, 'ticker': ticker_ticker   })
+        return render(request, 'search.html',{'api': api, 'ticker': upper_ticker   })
     else:
         return render(request, 'search.html',{'ticker': "Enter a ticker symbol" })
 
