@@ -6,7 +6,7 @@ from .forms import StockForm
 from django.contrib import messages
 
 
-#import yahoo_fin.stock_info as si
+import yfinance as yf
 import pandas as pd
 import numpy as np
 import requests
@@ -60,7 +60,8 @@ def search(request):
                 api= pd.DataFrame(data=temp)
             except:
                 ticker = ticker + ".IS"
-                temp = si.get_quote_table(ticker, dict_result=False).set_index('attribute')
+                temp = yf.Ticker(ticker)
+                temp = msft.info
                 api= pd.DataFrame(data=temp)
 
         except Exception as e:
@@ -149,7 +150,7 @@ def forecast(request, stock_name):
     return render(request, 'forecast.html', {'ticker': stock_name, 'tr_stock': tr_stock_name(stock_name)})
 
 def test(request):
-    import yfinance as yf
+    
     msft = yf.Ticker("MSFT")
     temp = msft.info
     api= pd.DataFrame(data=temp)
