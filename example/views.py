@@ -148,6 +148,8 @@ def forecast(request, stock_name):
     return render(request, 'forecast.html', {'ticker': stock_name, 'tr_stock': tr_stock_name(stock_name)})
 
 def test(request):
-    temp = si.get_quote_table("AAPL", dict_result=False).set_index('attribute')
+    import yfinance as yf
+    msft = yf.Ticker("MSFT")
+    temp = msft.info
     api= pd.DataFrame(data=temp)
-    return render(request, 'test.html',{'api': api, 'ticker': "AAPL" })
+    return render(request, 'test.html',{'api': api, 'ticker': msft })
