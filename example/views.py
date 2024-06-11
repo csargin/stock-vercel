@@ -32,8 +32,7 @@ def tr_stock_name(stock):
 
 def home(request):
     ticker_list = tuple(Stock.objects.values_list('ticker', flat = True))
-    #ticker_list = Stock.objects.values_list( 'id', 'ticker')
-   
+       
     if len(ticker_list)>0:
         try:
             api = ticker_list
@@ -88,7 +87,7 @@ def add_stock(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request, (stock_name + "Stock has been added"))
+            messages.success(request, ("Stock has been added"))
             return redirect('home')
     else:
         return redirect('home')
@@ -96,7 +95,7 @@ def add_stock(request):
 def delete(request, stock_name):
     item = Stock.objects.filter(ticker = stock_name)
     item.delete()
-    messages.success(request, (stock_name + "Stock has been deleted"))
+    messages.success(request, ("Stock has been deleted"))
     return redirect('home')
 
 def analysis(request, stock_name): #https://canvasjs.com/javascript-stockcharts/simple-moving-average-stockchart/
