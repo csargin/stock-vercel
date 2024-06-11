@@ -73,7 +73,7 @@ def search(request):
             return render(request, 'search.html',{'api': api, 'ticker': upper_ticker   })
 
         else:
-            return render(request, 'search.html',{'ticker': "" })
+            return render(request, 'search.html',{'ticker': "Error" })
     else:
         return render(request, 'search.html',{'ticker': "Enter a ticker symbol" })
 
