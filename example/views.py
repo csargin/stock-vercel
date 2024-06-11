@@ -57,11 +57,11 @@ def search(request):
         try:
             try:
                 temp = yf.Ticker(ticker)                
-                api= temp
+                api= temp.info 
             except:
                 ticker = ticker + ".IS"
                 temp = yf.Ticker(ticker)
-                api= temp
+                api= temp.info 
 
         except Exception as e:
             api = "Error"
