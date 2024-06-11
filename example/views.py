@@ -88,7 +88,7 @@ def add_stock(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request, ("Stock has been added"))
+            messages.success(request, (stock_name + "Stock has been added"))
             return redirect('home')
     else:
         return redirect('home')
