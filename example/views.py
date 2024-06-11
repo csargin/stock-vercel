@@ -56,14 +56,12 @@ def search(request):
 
         try:
             try:
-                temp = yf.Ticker(ticker)
-                temp = msft.info
-                api= pd.DataFrame(data=temp)
+                temp = yf.Ticker(ticker)                
+                api= pd.DataFrame(data=temp.info)
             except:
                 ticker = ticker + ".IS"
                 temp = yf.Ticker(ticker)
-                temp = msft.info
-                api= pd.DataFrame(data=temp)
+                api= pd.DataFrame(data=temp.info)
 
         except Exception as e:
             api = "Error"
