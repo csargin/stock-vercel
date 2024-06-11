@@ -96,7 +96,7 @@ def add_stock(request):
 def delete(request, stock_name):
     item = Stock.objects.filter(ticker = stock_name)
     item.delete()
-    messages.success(request, ("Stock has been deleted"))
+    messages.success(request, (stock_name + "Stock has been deleted"))
     return redirect('home')
 
 def analysis(request, stock_name): #https://canvasjs.com/javascript-stockcharts/simple-moving-average-stockchart/
