@@ -57,11 +57,11 @@ def search(request):
         try:
             try:
                 temp = yf.Ticker(ticker)                
-                api= pd.DataFrame(data=temp.info)
+                api= temp
             except:
                 ticker = ticker + ".IS"
                 temp = yf.Ticker(ticker)
-                api= pd.DataFrame(data=temp.info)
+                api= temp
 
         except Exception as e:
             api = "Error"
