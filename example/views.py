@@ -31,8 +31,8 @@ def tr_stock_name(stock):
         return stock
 
 def home(request):
-    #ticker_list = tuple(Stock.objects.values_list('ticker', flat = True))
-    ticker_list = Stock.objects.values_list( 'id', 'ticker')
+    ticker_list = tuple(Stock.objects.values_list('ticker', flat = True))
+    #ticker_list = Stock.objects.values_list( 'id', 'ticker')
    
     if len(ticker_list)>0:
         try:
