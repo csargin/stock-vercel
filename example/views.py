@@ -151,12 +151,21 @@ def forecast(request, stock_name):
     return render(request, 'forecast.html', {'ticker': stock_name, 'tr_stock': tr_stock_name(stock_name)})
 
 def test(request):
-    from django.shortcuts import render
-    import json
-    import os 
-    
-    msft = yf.Ticker("MSFT")
-    temp = msft.info
-    api= pd.DataFrame(data=temp)
-    return render(request, 'test.html',{'btc_usd_data': api, 'ticker': msft })
+    import yahoo_fin.stock_info as si
+    temp = si.get_data("MSFT",  index_as_date = False, interval = "1d")
+    api = pd.DataFrame(data=temp).drop(['ticker'], axis=1)
+
+    chart_data = []
+    for d,v in api.iterrows():
+        dct ={}
+        dct["date"] = v.date.strftime("%Y-%m-%d")
+        dct["open"] = v.open
+        dct["high"] = v.high
+        dct["low"] = v.low
+        dct["close"] = v.close
+        dct["adjclose"] = v.adjclose
+        dct["volume"] = v.volume
+        if (pd.isnull([v.date.strftime("%Y-%m-%d"), v.open, v.high, v.low, v.close, v.adjclose, v.volume]).any()) == False:
+            chart_data.append(dct)
+    return render(request, 'test.html',{'btc_usd_data': chart_data, 'ticker': msft })
     
