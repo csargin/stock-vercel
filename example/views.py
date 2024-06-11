@@ -158,5 +158,5 @@ def test(request):
     msft = yf.Ticker("MSFT")
     temp = msft.info
     api= pd.DataFrame(data=temp)
-    return render(request, 'test.html',{'btc_usd_data': btc_usd_data, 'ticker': msft })
+    return render(request, 'test.html',{'btc_usd_data': api, 'ticker': msft })
     
