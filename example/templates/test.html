@@ -2,9 +2,97 @@
 {% block content %}
 
 
-        {{ ticker }}
-        <br />
-        {{ api }}
+<!-- index.html -->
+{% load static %}
+<html>
+<head>
+<title>CanvasJS Python Charts</title>
+<script>
+  window.onload = function () {
+    var data = {{ btc_usd_data|safe }};
+    var btcUSDDps = [];
+ 
+    for(var i=0; i<data.length; i++) {
+      var dataDate = data[i].date;
+      btcUSDDps.push({ 
+        x: new Date(parseInt(dataDate.split("-")[0]),parseInt(dataDate.split("-")[1]),parseInt(dataDate.split("-")[2])), 
+        y: [ data[i].open, data[i].high, data[i].low, data[i].close ]
+      });
+    }
+    
+    var chart = new CanvasJS.Chart("chartContainer", {
+      zoomEnabled: true,
+      title: {
+        text: "Technical Indicators",
+        fontFamily: "Trebuchet MS, Helvetica, sans-serif"
+      },
+      subtitles: [{
+        text: "Exponential Moving Average",
+        fontFamily: "Trebuchet MS, Helvetica, sans-serif"
+      }],
+      axisX: {
+        crosshair: {
+          enabled: true,
+          snapToDataPoint: true,
+          valueFormatString: "MMM DD, YYYY"
+        }
+      },
+      axisY: {
+        prefix: "$",
+        title: "Price",
+        crosshair: {
+          enabled: true,
+          snapToDataPoint: true,
+          valueFormatString: "$#,##0.00",
+        }
+      },
+      toolTip: {
+        shared: true
+      },
+      legend: {
+        cursor: "pointer",
+        itemclick: toggleDataSeries,
+        dockInsidePlotArea: true
+      },
+      data: [{
+        type: "candlestick",
+        name: "Bitcoin Price",
+        showInLegend: true,
+        yValueFormatString: "$#,##0.00",
+        xValueFormatString: "MMM DD, YYYY",
+        dataPoints: btcUSDDps
+      }]
+    });
+    chart.render();
+    var ema = calculateEMA(btcUSDDps, 7);
+    chart.addTo("data", {type: "line", name: "EMA", showInLegend: true, yValueFormatString: "$#,###.##", dataPoints: ema});
+ 
+    function calculateEMA(dps,count) {
+      var k = 2/(count + 1);
+      var emaDps = [{x: dps[0].x, y: dps[0].y.length ? dps[0].y[3] : dps[0].y}];
+      for (var i = 1; i < dps.length; i++) {
+        emaDps.push({x: dps[i].x, y: (dps[i].y.length ? dps[i].y[3] : dps[i].y) * k + emaDps[i - 1].y * (1 - k)});
+      }
+      return emaDps;
+    }
+ 
+    function toggleDataSeries(e) {
+      if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+        e.dataSeries.visible = false;
+      }
+      else {
+        e.dataSeries.visible = true;
+      }
+      e.chart.render();
+    }
+  }
+</script>
+</head>
+<body>
+  <div id="chartContainer" style="height: 360px; width: 100%;"></div>
+  <script src="{% static 'canvasjs.min.js' %}"></script>
+</body>
+</html>   
 
 {% endblock %}
 
