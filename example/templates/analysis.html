@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-        {{chart_data}}
         <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.stock.min.js"></script>
         <script type="text/javascript">
 
             window.onload = function () {
                 var dps1 = [], dps2= [];
-                var my_var = "/static/forecasts/" + "{{tr_stock}}" + "/data.json";
                 var stockChart = new CanvasJS.StockChart("chartContainer",{
                 title:{
                   text:"{{ ticker }}"
@@ -52,7 +50,7 @@
                 }
               });
 
-              $.getJSON(my_var, function(data) {
+              $.getJSON(chart_data, function(data) {
                 for(var i = 0; i < data.length; i++){
                   dps1.push({x: new Date(data[i].date), y: [Number(data[i].open), Number(data[i].high), Number(data[i].low), Number(data[i].close)]});
                   dps2.push({x: new Date(data[i].date), y: Number(data[i].close)});
