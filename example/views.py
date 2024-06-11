@@ -138,18 +138,9 @@ def analysis(request, stock_name): #https://canvasjs.com/javascript-stockcharts/
             if (pd.isnull([v.date.strftime("%Y-%m-%d"), v.open, v.high, v.low, v.close, v.adjclose, v.volume]).any()) == False:
                 chart_data.append(dct)
 
-        home_dir = os.getcwd()
-        folder_path = os.path.join(home_dir, "stocks/quotes/static/forecasts", tr_stock_name(stock_name))
-        file_path = os.path.join(folder_path , "data.json")
-        isExist = os.path.exists(folder_path)
-        if not isExist:
-            os.makedirs(folder_path)
-
-        with open(file_path, "w") as outfile:
-            json.dump(chart_data, outfile , indent=7)
     except Exception as e:
         api = "Error"
-    return render(request, 'analysis.html', {'api': api, 'ticker': symbol, 'tr_stock': tr_stock_name(stock_name)  })
+    return render(request, 'analysis.html', {'api': api, 'ticker': symbol, 'tr_stock': tr_stock_name(stock_name), 'chart_data': chart_data  })
 
 def calendar(request):
     return render(request, 'calendar.html' , {})
