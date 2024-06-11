@@ -5,7 +5,7 @@
         <thead class="thead-dark">
             <tr>
                 <th class="text-center" style="vertical-align: middle" scope="col"> Stock Name</th>
-                {% for i in api.index %}
+                {% for i in api.symbol %}
                     <th class="text-center" style="vertical-align: middle" scope="col">{{ i }}</th>
                 {% endfor %}
                 <th class="text-center" style="vertical-align: middle" scope="col">Add to Portfolio</th>
@@ -14,7 +14,7 @@
         <tbody>
             <tr>
                 <td class="text-center" style="vertical-align: middle">{{ ticker }}</td>
-                {% for i in api.value %}
+                {% for i in api.previousClose %}
                     <td class="text-center" style="vertical-align: middle">{{ i }}</td>
                 {% endfor %}
                 <td class="text-center" style="vertical-align: middle">
