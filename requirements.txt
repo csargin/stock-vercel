@@ -3,6 +3,7 @@ psycopg2-binary==2.8.6
 pandas == 2.2.2
 yfinance == 0.2.40
 yahoo-finance == 1.4.0
+yahoo-fin == 0.8.9.1
 
 
 
