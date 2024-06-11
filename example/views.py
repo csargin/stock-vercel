@@ -61,16 +61,20 @@ def search(request):
                     temp = yf.Ticker(ticker)                
                     api= temp.info 
                     symbol_check_error = api["symbol"]
+                    ticker = ticker.upper()
+                    
                 except:
                     ticker = ticker + ".IS"
                     temp = yf.Ticker(ticker)
                     api= temp.info 
                     symbol_check_error = api["symbol"]
+                    ticker = ticker.upper()
     
             except Exception as e:
                 api = "Error"
-            upper_ticker = ticker.upper()
-            return render(request, 'search.html',{'api': api, 'ticker': upper_ticker   })
+                ticker = "Error"
+            
+            return render(request, 'search.html',{'api': api, 'ticker': ticker   })
 
         else:
             return render(request, 'search.html',{'ticker': "Error" })
