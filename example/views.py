@@ -167,5 +167,5 @@ def test(request):
         dct["volume"] = v.volume
         if (pd.isnull([v.date.strftime("%Y-%m-%d"), v.open, v.high, v.low, v.close, v.adjclose, v.volume]).any()) == False:
             chart_data.append(dct)
-    return render(request, 'test.html',{'btc_usd_data': chart_data, 'ticker': msft })
+    return render(request, 'test.html',{'btc_usd_data': chart_data })
     
