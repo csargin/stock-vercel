@@ -60,10 +60,12 @@ def search(request):
                 try:
                     temp = yf.Ticker(ticker)                
                     api= temp.info 
+                    symbol_check_error = api["symbol"]
                 except:
                     ticker = ticker + ".IS"
                     temp = yf.Ticker(ticker)
                     api= temp.info 
+                    symbol_check_error = api["symbol"]
     
             except Exception as e:
                 api = "Error"
