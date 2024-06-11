@@ -54,19 +54,24 @@ def search(request):
     if request.method == 'POST':
         ticker = request.POST['ticker']
 
-        try:
-            try:
-                temp = yf.Ticker(ticker)                
-                api= temp.info 
-            except:
-                ticker = ticker + ".IS"
-                temp = yf.Ticker(ticker)
-                api= temp.info 
+        if ticker != "":
 
-        except Exception as e:
-            api = "Error"
-        upper_ticker = ticker.upper()
-        return render(request, 'search.html',{'api': api, 'ticker': upper_ticker   })
+            try:
+                try:
+                    temp = yf.Ticker(ticker)                
+                    api= temp.info 
+                except:
+                    ticker = ticker + ".IS"
+                    temp = yf.Ticker(ticker)
+                    api= temp.info 
+    
+            except Exception as e:
+                api = "Error"
+            upper_ticker = ticker.upper()
+            return render(request, 'search.html',{'api': api, 'ticker': upper_ticker   })
+
+        else:
+            return render(request, 'search.html',{'ticker': "Enter a ticker symbol" })
     else:
         return render(request, 'search.html',{'ticker': "Enter a ticker symbol" })
 
