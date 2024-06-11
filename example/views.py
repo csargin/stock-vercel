@@ -100,6 +100,7 @@ def delete(request, stock_name):
 
 def analysis(request, stock_name): #https://canvasjs.com/javascript-stockcharts/simple-moving-average-stockchart/
     from datetime import date
+    import yahoo_fin.stock_info as si
 
     try:
         symbol = ""
