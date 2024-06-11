@@ -1,5 +1,5 @@
-python == 3.10
-Django==5.0.6
+python == 3
+Django == 5
 psycopg2-binary==2.8.6
 pandas == 2.2.2
 yfinance == 0.2.40
