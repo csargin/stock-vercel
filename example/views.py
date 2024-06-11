@@ -151,9 +151,12 @@ def forecast(request, stock_name):
     return render(request, 'forecast.html', {'ticker': stock_name, 'tr_stock': tr_stock_name(stock_name)})
 
 def test(request):
+    from django.shortcuts import render
+    import json
+    import os 
     
     msft = yf.Ticker("MSFT")
     temp = msft.info
     api= pd.DataFrame(data=temp)
-    return render(request, 'test.html',{'api': api, 'ticker': msft })
+    return render(request, 'test.html',{'btc_usd_data': btc_usd_data, 'ticker': msft })
     
