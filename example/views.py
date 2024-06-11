@@ -54,7 +54,7 @@ def search(request):
     if request.method == 'POST':
         ticker = request.POST['ticker']
 
-        if ticker != "":
+        if ticker:
 
             try:
                 try:
